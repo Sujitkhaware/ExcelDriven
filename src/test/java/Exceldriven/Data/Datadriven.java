@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -92,14 +94,25 @@ public class Datadriven {
 							//Once match is found, we have to pull all of the data for that row.
 							Iterator<Cell> cv = r.cellIterator();
 							while(cv.hasNext()) {
+								//How to write a wrapper code to check for String or Integer.
+								Cell c = cv.next();
+								//We shall now have a check here which will decide what is the datatype
+								//In the below we are telling that what ever cell type you got when you extract.
+								//If its equals to String cell
+								if(c.getCellType()==CellType.STRING) {
 								//the below will only move next in the purchase row cell.
-								a.add(cv.next().getStringCellValue());
-								
-							}
+								a.add(c.getStringCellValue());
+								}
+								else {
+									//How to convert number to string
+									//Once the below is converted into String then we shall wrap it into ArrayList
+									a.add(NumberToTextConverter.toText(c.getNumericCellValue()));
+								}
 						}
 					}
-					}
 				}
+			}
+		}
 				return a;
 	}
 	
