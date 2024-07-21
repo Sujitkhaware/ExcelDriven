@@ -87,6 +87,11 @@ public class Datadriven {
 				Row r = rows.next();
 				if(r.getCell(column).getStringCellValue().equalsIgnoreCase("Purchase")) {
 					//Once match is found, we have to pull all of the data for that row.
+					Iterator<Cell> cv = r.cellIterator();
+					while(cv.hasNext()) {
+						//the below will only move next in the purchase row cell.
+						System.out.println(cv.next().getStringCellValue());
+					}
 				}
 			}
 			}
